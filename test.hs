@@ -13,18 +13,30 @@ testCase label assertion = TestLabel label (TestCase assertion)
 
 main :: IO ()
 main = exitProperly $ runTestTT $ TestList
-  [ TestList vectorTests]
+  [ TestList $ vectorTests ++ vector2Tests
+  ]
 
 vectorTests :: [Test]
 vectorTests =
-  [ testCase "empty list" $ (Nothing) @=? search (VectorArgs (V.fromList []) 0) 4
-  , testCase "Test position" $ (Just 0) @=? search (VectorArgs (V.fromList [1..6]) 6) 1
-  , testCase "Test position" $ (Just 1) @=? search (VectorArgs (V.fromList [1..6]) 6) 2
-  , testCase "Test position" $ (Just 2) @=? search (VectorArgs (V.fromList [1..6]) 6) 3
-  , testCase "Test position" $ (Just 3) @=? search (VectorArgs (V.fromList [1..6]) 6) 4
-  , testCase "Test position" $ (Just 4) @=? search (VectorArgs (V.fromList [1..6]) 6) 5
-  , testCase "Test position" $ (Just 5) @=? search (VectorArgs (V.fromList [1..6]) 6) 6
-  , testCase "Test Invalid position" $ (Nothing) @=? search (VectorArgs (V.fromList [1..6]) 6) 7
+  [ testCase "empty list" $ Nothing @=? search (VectorArgs (V.fromList []) 0) 4
+  , testCase "Test position" $ Just 0 @=? search (VectorArgs (V.fromList [1..6]) 6) 1
+  , testCase "Test position" $ Just 1 @=? search (VectorArgs (V.fromList [1..6]) 6) 2
+  , testCase "Test position" $ Just 2 @=? search (VectorArgs (V.fromList [1..6]) 6) 3
+  , testCase "Test position" $ Just 3 @=? search (VectorArgs (V.fromList [1..6]) 6) 4
+  , testCase "Test position" $ Just 4 @=? search (VectorArgs (V.fromList [1..6]) 6) 5
+  , testCase "Test position" $ Just 5 @=? search (VectorArgs (V.fromList [1..6]) 6) 6
+  , testCase "Test Invalid position" $ Nothing @=? search (VectorArgs (V.fromList [1..6]) 6) 7
   ]
 
 
+vector2Tests :: [Test]
+vector2Tests =
+  [ testCase "empty list" $ Nothing @=? search (VectorArgs2 (V.fromList []) 0) 4
+  , testCase "Test position" $ Just 0 @=? search (VectorArgs2 (V.fromList [1..6]) 6) 1
+  , testCase "Test position" $ Just 1 @=? search (VectorArgs2 (V.fromList [1..6]) 6) 2
+  , testCase "Test position" $ Just 2 @=? search (VectorArgs2 (V.fromList [1..6]) 6) 3
+  , testCase "Test position" $ Just 3 @=? search (VectorArgs2 (V.fromList [1..6]) 6) 4
+  , testCase "Test position" $ Just 4 @=? search (VectorArgs2 (V.fromList [1..6]) 6) 5
+  , testCase "Test position" $ Just 5 @=? search (VectorArgs2 (V.fromList [1..6]) 6) 6
+  , testCase "Test Invalid position" $ Nothing @=? search (VectorArgs2 (V.fromList [1..6]) 6) 7
+  ]
